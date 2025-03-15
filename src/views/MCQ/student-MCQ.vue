@@ -1,0 +1,42 @@
+<template>
+  <el-card>
+    <h2>选择题</h2>
+    <p>{{ mcqQuestion }}</p>
+    <el-radio-group v-model="userAnswer">
+      <el-radio v-for="(option, key) in mcqOptions" :key="key" :label="key"
+        >{{ key }}: {{ option }}</el-radio
+      >
+    </el-radio-group>
+    <el-button @click="checkAnswer">提交答案</el-button>
+    <p v-if="answerResult">{{ answerResult }}</p>
+    <el-button @click="getNewMCQ">下一题</el-button>
+  </el-card>
+</template>
+
+<script setup>
+import { ref } from "vue";
+import { generateMCQ } from '../../api/mcq';
+
+const mcqQuestion = ref("");
+const mcqOptions = ref({});
+const userAnswer = ref("");
+const answerResult = ref("");
+const mcqAnswer = ref("");
+
+const getNewMCQ = async () => {
+    const data = await generateMCQ('random');
+    mcqQuestion.value = data.question;
+    mcqOptions.value = data.options;
+    mcqAnswer.value = data.answer;
+    userAnswer.value = '';
+    answerResult.value = '';
+};
+
+const checkAnswer = () => {
+  if (userAnswer.value === mcqAnswer.value) {
+    answerResult.value = "回答正确";
+  } else {
+    answerResult.value = `回答错误，正确答案是 ${mcqAnswer.value}`;
+  }
+};
+</script>
