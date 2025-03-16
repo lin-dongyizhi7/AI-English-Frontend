@@ -2,7 +2,11 @@ import { ZhipuAI } from 'zhipuai-sdk-nodejs-v4';
 
 const chat = new ZhipuAI();
 
-const gradeToPrompt = {
+interface GradeOptions {
+    [key: number]: string;
+}
+
+const gradeToPrompt: GradeOptions = {
     1: "小学一年级",
     2: "小学二年级",
     3: "小学三年级",
@@ -17,7 +21,7 @@ const gradeToPrompt = {
     12: "高中三年级"
 };
 
-export const generateMCQ = async (grade, topic='') => {
+export const generateMCQ = async (grade: number, topic='') => {
     const prompt = `请生成一道${topic}${gradeToPrompt[grade]}英语选择题，包含4个选项和正确答案，格式为：问题：[问题内容]\n选项A：[选项A内容]\n选项B：[选项B内容]\n选项C：[选项C内容]\n选项D：[选项D内容]\n答案：[A/B/C/D]`;
     const response = await chat.createCompletions({
         model: 'glm-4',

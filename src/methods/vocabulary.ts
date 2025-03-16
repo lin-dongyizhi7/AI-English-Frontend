@@ -2,7 +2,11 @@ import { ZhipuAI } from 'zhipuai-sdk-nodejs-v4';
 
 const chat = new ZhipuAI();
 
-const gradeToPrompt = {
+interface GradeOptions {
+    [key: number]: string;
+}
+
+const gradeToPrompt: GradeOptions = {
     1: "小学一年级英语单词",
     2: "小学二年级英语单词",
     3: "小学三年级英语单词",
@@ -17,7 +21,7 @@ const gradeToPrompt = {
     12: "高中三年级英语单词"
 };
 
-export const generateVocabularyList = async (grade) => {
+export const generateVocabularyList = async (grade: number) => {
     const prompt = `请生成100个${gradeToPrompt[grade]}，以逗号分隔列出，给出其中文含义及对应词性，例如：cat-n.猫,walk-v.走,good-adj.好的`;
     const response = await chat.createCompletions({
         model: 'glm-4',
