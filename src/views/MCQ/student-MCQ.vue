@@ -1,5 +1,5 @@
 <template>
-  <el-card>
+  <el-card class="h-80 w-11/12">
     <h2>选择题</h2>
     <p>{{ mcqQuestion }}</p>
     <el-radio-group v-model="userAnswer">
@@ -15,7 +15,11 @@
 
 <script setup>
 import { ref } from "vue";
-import { generateMCQ } from '../../api/mcq';
+// import { generateMCQ } from '../../api/mcq';
+import { generateMCQ } from "../../methods/mcq";
+
+import { useControlStore } from "../../stores/control";
+const controlStore = useControlStore();
 
 const mcqQuestion = ref("");
 const mcqOptions = ref({});
@@ -24,7 +28,7 @@ const answerResult = ref("");
 const mcqAnswer = ref("");
 
 const getNewMCQ = async () => {
-    const data = await generateMCQ('random');
+    const data = await generateMCQ(controlStore.grade);
     mcqQuestion.value = data.question;
     mcqOptions.value = data.options;
     mcqAnswer.value = data.answer;

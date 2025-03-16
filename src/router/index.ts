@@ -31,7 +31,6 @@ const routes = [
     path: "/mcq",
     name: "mcq",
     component: MCQ,
-    props: (route: any) => ({ mode: route.query.mode }),
   },
 ];
 

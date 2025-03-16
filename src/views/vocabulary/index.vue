@@ -1,6 +1,9 @@
 <template>
-  <div>
-    <el-card>
+  <div class="mb-4">
+    <el-button @click="goHome">返回首页</el-button>
+  </div>
+  <div class="flex justify-center">
+    <el-card class="h-80 w-11/12">
       <h2>单词默写</h2>
       <p v-if="vocabularyQuestion">{{ vocabularyQuestion }}:</p>
       <el-input
@@ -19,17 +22,28 @@
 
 <script setup>
 import { ref } from "vue";
-import { generateVocabulary } from '../../api/vocabulary';
+// import { generateVocabulary } from '../../api/vocabulary';
+import { generateVocabularyList } from "../../methods/vocabulary";
+
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+import { useControlStore } from "../../stores/control";
+const controlStore = useControlStore();
+
+const goHome = () => {
+  router.push("/");
+};
 
 const vocabularyQuestion = ref("");
 const userVocabularyAnswer = ref("");
 const vocabularyAnswerResult = ref("");
 
 const getNewVocabularyQuestion = async () => {
-    const data = await generateVocabulary('random');
-    vocabularyQuestion.value = data.word;
-    userVocabularyAnswer.value = '';
-    vocabularyAnswerResult.value = '';
+  const data = await generateVocabularyList(controlStore.grade);
+  vocabularyQuestion.value = data.word;
+  userVocabularyAnswer.value = "";
+  vocabularyAnswerResult.value = "";
 };
 
 const checkVocabularyAnswer = () => {

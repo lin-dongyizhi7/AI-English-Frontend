@@ -1,20 +1,24 @@
 <template>
-  <div>
-    <student-MCQ v-if="mode === 'student'" />
-    <teacher-MCQ v-if="mode === 'teacher'" />
+  <div class="mb-4">
+    <el-button @click="goHome">返回首页</el-button>
+  </div>
+  <div class="flex justify-center">
+    <student-MCQ v-if="controlStore.mode === 'student'" />
+    <teacher-MCQ v-if="controlStore.mode === 'teacher'" />
   </div>
 </template>
 
 <script setup>
-import { computed } from "vue";
 import StudentMCQ from "./student-MCQ.vue";
 import TeacherMCQ from "./teacher-MCQ.vue";
 
-const mode = computed(() => props.mode);
-const props = defineProps({
-  mode: {
-    type: String,
-    required: true,
-  },
-});
+import { useControlStore } from "../../stores/control";
+const controlStore = useControlStore();
+
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const goHome = () => {
+  router.push("/");
+};
 </script>
