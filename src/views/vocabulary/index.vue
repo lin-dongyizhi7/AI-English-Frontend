@@ -22,8 +22,7 @@
 
 <script setup>
 import { ref } from "vue";
-// import { generateVocabulary } from '../../api/vocabulary';
-import { generateVocabularyList } from "../../methods/vocabulary";
+import { generateVocabularyList } from '../../api/vocabulary';
 
 import { useRouter } from "vue-router";
 const router = useRouter();

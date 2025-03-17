@@ -14,8 +14,7 @@
 
 <script setup>
 import { ref } from "vue";
-// import { generateMCQ } from '../../api/mcq';
-import { generateMCQ } from "../../methods/mcq";
+import { generateMCQ } from '../../api/mcq';
 
 import { useControlStore } from "../../stores/control";
 const controlStore = useControlStore();

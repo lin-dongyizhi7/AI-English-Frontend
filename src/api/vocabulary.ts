@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const generateVocabulary = async (topic: string) => {
+export const generateVocabularyList = async (topic: string) => {
   try {
     const response = await axios.post("/generate_vocabulary", { topic });
     return response.data;
