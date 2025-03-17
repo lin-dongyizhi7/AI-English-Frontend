@@ -3,7 +3,7 @@
     <h2>选择题</h2>
     <p>{{ mcqQuestion }}</p>
     <ul>
-      <li v - for="(option, key) in mcqOptions" :key="key">{{ key }}: {{ option }}</li>
+      <li v-for="(option, key) in mcqOptions" :key="key">{{ key }}: {{ option }}</li>
     </ul>
     <p>答案: {{ mcqAnswer }}</p>
     <p>解析: {{ mcqExplanation }}</p>
@@ -13,8 +13,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { generateMCQ } from '../../api/mcq';
+import { ref, onMounted } from "vue";
+import { generateMCQ } from "../../api/mcq";
 
 import { useControlStore } from "../../stores/control";
 const controlStore = useControlStore();
@@ -25,11 +25,11 @@ const mcqAnswer = ref("");
 const mcqExplanation = ref("");
 
 const getNewMCQ = async () => {
-    const data = await generateMCQ(controlStore.grade);
-    mcqQuestion.value = data.question;
-    mcqOptions.value = data.options;
-    mcqAnswer.value = data.answer;
-    mcqExplanation.value = data.explanation;
+  const data = await generateMCQ(controlStore.grade, "随机主题");
+  mcqQuestion.value = data.question;
+  mcqOptions.value = data.options;
+  mcqAnswer.value = data.answer;
+  mcqExplanation.value = data.explanation;
 };
 
 const copyMCQResult = () => {
@@ -45,4 +45,8 @@ const copyMCQResult = () => {
       console.error("复制失败:", error);
     });
 };
+
+onMounted(() => {
+  getNewMCQ();
+});
 </script>

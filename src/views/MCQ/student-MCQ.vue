@@ -14,8 +14,8 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { generateMCQ } from '../../api/mcq';
+import { ref, onMounted } from "vue";
+import { generateMCQ } from "../../api/mcq";
 
 import { useControlStore } from "../../stores/control";
 const controlStore = useControlStore();
@@ -25,14 +25,16 @@ const mcqOptions = ref({});
 const userAnswer = ref("");
 const answerResult = ref("");
 const mcqAnswer = ref("");
+const mcqExplanation = ref("");
 
 const getNewMCQ = async () => {
-    const data = await generateMCQ(controlStore.grade);
-    mcqQuestion.value = data.question;
-    mcqOptions.value = data.options;
-    mcqAnswer.value = data.answer;
-    userAnswer.value = '';
-    answerResult.value = '';
+  const data = await generateMCQ(controlStore.grade, "随机主题");
+  mcqQuestion.value = data.question;
+  mcqOptions.value = data.options;
+  mcqAnswer.value = data.answer;
+  mcqExplanation.value = data.explanation;
+  userAnswer.value = "";
+  answerResult.value = "";
 };
 
 const checkAnswer = () => {
@@ -42,4 +44,8 @@ const checkAnswer = () => {
     answerResult.value = `回答错误，正确答案是 ${mcqAnswer.value}`;
   }
 };
+
+onMounted(() => {
+  getNewMCQ();
+});
 </script>

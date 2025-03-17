@@ -24,4 +24,8 @@ const goToVocabulary = () => {
 const goToMCQ = () => {
   router.push("/mcq");
 };
+
+const goHome = () => {
+  router.push("/");
+};
 </script>
