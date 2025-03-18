@@ -1,18 +1,22 @@
 <template>
   <el-card class="h-80 w-11/12">
-    <h2>选择题</h2>
+    <h2 class="mb-2">选择题</h2>
     <p>{{ mcqQuestion }}</p>
-    <ul>
-      <li v-for="(option, key) in mcqOptions" :key="key">{{ key }}: {{ option }}</li>
+    <ul class="mt-2 mb-4">
+      <li class="mt-1 mb-1" v-for="(option, key) in mcqOptions" :key="key">
+        {{ key }}: {{ option }}
+      </li>
     </ul>
-    <p>答案: {{ mcqAnswer }}</p>
-    <p>解析: {{ mcqExplanation }}</p>
-    <el-button @click="copyMCQResult">复制结果</el-button>
-    <el-button @click="getNewMCQ">下一题</el-button>
+    <div class="mb-2 font-bold">答案: {{ mcqAnswer }}</div>
+    <div class="mb-2">解析: {{ mcqExplanation }}</div>
+    <div>
+      <el-button @click="copyMCQResult">复制结果</el-button>
+      <el-button @click="getNewMCQ">下一题</el-button>
+    </div>
   </el-card>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, onMounted } from "vue";
 import { generateMCQ } from "../../api/mcq";
 

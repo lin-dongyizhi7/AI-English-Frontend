@@ -34,8 +34,8 @@
   </div>
 </template>
 
-<script setup>
-import { computed, ref } from "vue";
+<script lang="ts" setup>
+import { ref } from "vue";
 
 import { useControlStore } from "./stores/control";
 import { grades } from "./constant";
@@ -54,11 +54,6 @@ const grade = ref(controlStore.grade);
 
 import { useRouter } from "vue-router";
 const router = useRouter();
-// const useable = computed(() => {
-//   const currentPath = router.currentRoute.value.path;
-//   if (currentPath === "/mcq" || currentPath === "/vocabulary") return false;
-//   return true;
-// });
 
 const getStatus = () => {
   const currentPath = router.currentRoute.value.path;
@@ -66,7 +61,7 @@ const getStatus = () => {
   return true;
 };
 
-const changeGrade = (val) => {
+const changeGrade = (val: number) => {
   controlStore.setGrade(val);
 };
 </script>

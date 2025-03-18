@@ -16,13 +16,13 @@
       <el-button v-if="vocabularyQuestion" @click="checkVocabularyAnswer"
         >提交答案</el-button
       >
-      <p class="m-1" v-if="vocabularyAnswerResult">{{ vocabularyAnswerResult }}</p>
-      <el-button v-if="flag || tryTimes === 3" @click="getNextWord">下一个单词</el-button>
+      <p class="m-2" :class="resultClass" v-if="vocabularyAnswerResult">{{ vocabularyAnswerResult }}</p>
+      <el-button v-if="flag || tryTimes === 3" @click="nextWord">下一个单词</el-button>
     </el-card>
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, onMounted } from "vue";
 import { generateVocabularyList } from "../../api/vocabulary";
 
@@ -30,6 +30,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 import { useControlStore } from "../../stores/control";
+import type { wordProp } from "../../interface";
 const controlStore = useControlStore();
 
 const goHome = () => {
@@ -43,7 +44,7 @@ const vocabularyAnswerResult = ref("");
 const flag = ref(false);
 const tryTimes = ref(0);
 
-const wordList = ref([]);
+const wordList = ref<wordProp[]>([]);
 const wordNum = ref(0);
 const wordIndex = ref(0);
 
@@ -74,13 +75,17 @@ const getNewVocabularyList = async () => {
   getNextWord();
 };
 
+const resultClass = ref();
+
 const checkVocabularyAnswer = () => {
   if (userVocabularyAnswer.value === vocabularyQuestion.value) {
     vocabularyAnswerResult.value = "回答正确";
     flag.value = true;
+    resultClass.value = "text-emerald-500";
   } else {
     flag.value = false;
     tryTimes.value++;
+    resultClass.value = "text-red-500";
     if (tryTimes.value === 3) {
       vocabularyAnswerResult.value = `回答错误，正确答案是 ${vocabularyQuestion.value}`;
     } else {

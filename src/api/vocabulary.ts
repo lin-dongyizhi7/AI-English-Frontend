@@ -1,12 +1,14 @@
 import axios from "axios";
+import type { wordProp } from "../interface";
 
-export const generateVocabularyList = async (grade: string) => {
+
+export const generateVocabularyList = async (grade: number): Promise<wordProp[]> => {
   try {
     const response = await axios.post("http://127.0.0.1:8080/generate_vocabulary", { grade });
     if (response.data.vocabulary_list.message!=='Success') return [];
     const data = response.data.vocabulary_list.choices[0].message.content;
     console.log(data)
-    const wordList = data.split('\n').map((line: string)=>{
+    const wordList: wordProp[] = data.split('\n').map((line: string)=>{
       const word_info = line.split('---')
       return {
         word: word_info[0],

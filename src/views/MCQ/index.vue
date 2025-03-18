@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-4">
+  <div class="mt-2 mb-4">
     <el-button @click="goHome">返回首页</el-button>
   </div>
   <div class="flex justify-center">
@@ -8,7 +8,7 @@
   </div>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import StudentMCQ from "./student-MCQ.vue";
 import TeacherMCQ from "./teacher-MCQ.vue";
 

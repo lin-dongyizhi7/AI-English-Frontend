@@ -1,19 +1,24 @@
 <template>
   <el-card class="h-80 w-11/12">
-    <h2>选择题</h2>
+    <h2 class="mb-2">选择题</h2>
     <p>{{ mcqQuestion }}</p>
-    <el-radio-group v-model="userAnswer">
-      <el-radio v-for="(option, key) in mcqOptions" :key="key" :label="key"
-        >{{ key }}: {{ option }}</el-radio
-      >
-    </el-radio-group>
+    <div class="mt-2 mb-4">
+      <el-radio-group v-model="userAnswer">
+        <el-radio v-for="(option, key) in mcqOptions" :key="key" :label="key"
+          >{{ key }}: {{ option }}</el-radio
+        >
+      </el-radio-group>
+    </div>
     <el-button @click="checkAnswer">提交答案</el-button>
-    <p v-if="answerResult">{{ answerResult }}</p>
+    <div class="mt-2 mb-2" v-if="answerResult">
+      <div class="font-bold" :class="resultClass">{{ answerResult }}</div>
+      <div class="mt-1">{{ mcqExplanation }}</div>
+    </div>
     <el-button @click="getNewMCQ">下一题</el-button>
   </el-card>
 </template>
 
-<script setup>
+<script lang="ts" setup>
 import { ref, onMounted } from "vue";
 import { generateMCQ } from "../../api/mcq";
 
@@ -37,11 +42,15 @@ const getNewMCQ = async () => {
   answerResult.value = "";
 };
 
+const resultClass = ref();
+
 const checkAnswer = () => {
   if (userAnswer.value === mcqAnswer.value) {
     answerResult.value = "回答正确";
+    resultClass.value = "text-emerald-500";
   } else {
     answerResult.value = `回答错误，正确答案是 ${mcqAnswer.value}`;
+    resultClass.value = "text-red-500";
   }
 };
 
