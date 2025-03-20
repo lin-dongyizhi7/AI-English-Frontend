@@ -4,8 +4,8 @@
     <p>{{ mcqQuestion }}</p>
     <div class="mt-2 mb-4">
       <el-radio-group v-model="userAnswer">
-        <el-radio v-for="(option, key) in mcqOptions" :key="key" :label="key"
-          >{{ key }}: {{ option }}</el-radio
+        <el-radio v-for="option in mcqOptions" :key="option.index" :label="option.text" :value="option.index"
+          >{{ option.index }}: {{ option.text }}</el-radio
         >
       </el-radio-group>
     </div>

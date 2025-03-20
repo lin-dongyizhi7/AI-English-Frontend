@@ -3,9 +3,14 @@ export interface wordProp {
   meaning: string;
 }
 
+interface optionProp {
+  index: string;
+  text: string;
+}
+
 export interface mcqProp {
   question: string;
-  options: string[];
+  options: optionProp[];
   answer: string;
   explanation: string;
 }
