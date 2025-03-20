@@ -1,9 +1,9 @@
 <template>
   <div class="mt-20 mb-8 flex flex-col gap-y-4">
     <img
-      src="/temp.jpg"
+      src="/march7th.jpg"
       alt="Welcome Logo"
-      style="width: 200px; height: auto; display: block; margin: 0 auto"
+      style="width: 320px; height: auto; display: block; margin: 0 auto"
     />
     <div class="font-bold font-mono text-6xl">欢迎来到英语乐园</div>
   </div>
