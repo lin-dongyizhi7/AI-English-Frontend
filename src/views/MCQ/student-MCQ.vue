@@ -20,13 +20,15 @@
 
 <script lang="ts" setup>
 import { ref, onMounted } from "vue";
+
+import type { optionProp } from "../../interface";
 import { generateMCQ } from "../../api/mcq";
 
 import { useControlStore } from "../../stores/control";
 const controlStore = useControlStore();
 
 const mcqQuestion = ref("");
-const mcqOptions = ref({});
+const mcqOptions = ref<optionProp[]>([]);
 const userAnswer = ref("");
 const answerResult = ref("");
 const mcqAnswer = ref("");

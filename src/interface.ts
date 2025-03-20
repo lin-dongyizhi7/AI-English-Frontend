@@ -3,7 +3,7 @@ export interface wordProp {
   meaning: string;
 }
 
-interface optionProp {
+export interface optionProp {
   index: string;
   text: string;
 }

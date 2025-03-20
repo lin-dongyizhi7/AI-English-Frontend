@@ -1,10 +1,6 @@
 <template>
   <div class="mt-20 mb-8 flex flex-col gap-y-4">
-    <img
-      src="/march7th.jpg"
-      alt="Welcome Logo"
-      style="width: 320px; height: auto; display: block; margin: 0 auto"
-    />
+    <img :src="imgSrc" style="width: 320px; height: 180px; margin: 0 auto" />
     <div class="font-bold font-mono text-6xl">欢迎来到英语乐园</div>
   </div>
   <div>
@@ -14,6 +10,8 @@
 
 <script lang="ts" setup>
 import { useRouter } from "vue-router";
+
+import imgSrc from "./march7th.jpg";
 
 import { useControlStore } from "../../stores/control";
 const controlStore = useControlStore();
